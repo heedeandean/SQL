@@ -24,4 +24,13 @@ db.Singer.update( {name:'singer4'},
 				 }
 )
 
+//4. singer4의 albums에 103번 이하($lte)를 제거하시오.
+db.Singer.update({name: 'singer4'}, {$pull: {albums: { $lte: 103 }  }})
+
+//5. singer4의 albums에 [107, 109]를 제거하시오.
+db.Singer.update({name: 'singer4'}, {$pull: {albums: { $in: [107,109] }  }})
+
 db.Singer.findOne( {name:'singer4'})
+
+
+
