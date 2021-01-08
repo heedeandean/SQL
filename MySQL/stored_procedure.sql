@@ -23,3 +23,24 @@ END $$
 DELIMITER ;
 
 CALL ifProc();
+
+
+DROP PROCEDURE IF EXISTS ifProc2;
+
+DELIMITER $$
+CREATE PROCEDURE ifProc2()
+BEGIN
+	DECLARE score INT; 
+
+    SET score = 100;
+    
+    IF score >= 90 THEN SELECT 'A';
+	ELSEIF score >= 80 THEN SELECT 'B';
+	ELSEIF score >= 70 THEN SELECT 'C';
+	ELSEIF score >= 60 THEN SELECT 'D';
+    ELSE SELECT 'F';
+	END IF;
+END $$
+DELIMITER ;
+
+CALL ifProc2();
