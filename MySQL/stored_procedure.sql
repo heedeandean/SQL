@@ -25,22 +25,31 @@ DELIMITER ;
 CALL ifProc();
 
 
-DROP PROCEDURE IF EXISTS ifProc2;
+DROP PROCEDURE IF EXISTS caseProc;
 
 DELIMITER $$
-CREATE PROCEDURE ifProc2()
+CREATE PROCEDURE caseProc()
 BEGIN
 	DECLARE score INT; 
 
     SET score = 100;
-    
+
+/*    
     IF score >= 90 THEN SELECT 'A';
 	ELSEIF score >= 80 THEN SELECT 'B';
 	ELSEIF score >= 70 THEN SELECT 'C';
 	ELSEIF score >= 60 THEN SELECT 'D';
     ELSE SELECT 'F';
 	END IF;
+*/
+	CASE 
+		WHEN score >= 90 THEN SELECT 'A';
+        WHEN score >= 80 THEN SELECT 'B';
+        WHEN score >= 70 THEN SELECT 'C';
+        WHEN score >= 60 THEN SELECT 'D';
+        ELSE SELECT 'F';
+	END CASE;
 END $$
 DELIMITER ;
 
-CALL ifProc2();
+CALL caseProc();
