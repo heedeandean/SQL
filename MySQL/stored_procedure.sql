@@ -1,5 +1,4 @@
 DROP PROCEDURE IF EXISTS ifProc;
-
 DELIMITER $$
 CREATE PROCEDURE ifProc()
 BEGIN
@@ -26,7 +25,6 @@ CALL ifProc();
 
 
 DROP PROCEDURE IF EXISTS caseProc;
-
 DELIMITER $$
 CREATE PROCEDURE caseProc()
 BEGIN
@@ -53,3 +51,46 @@ END $$
 DELIMITER ;
 
 CALL caseProc();
+
+
+DROP PROCEDURE IF EXISTS whileProc;
+DELIMITER $$
+CREATE PROCEDURE whileProc()
+BEGIN
+	DECLARE i INT; 
+    DECLARE hap INT;
+    SET i = 1;
+    SET hap = 0;
+
+	myWhile: WHILE (i <= 100) DO
+		IF (i%7 = 0) THEN
+			SET i = i + 1;
+            ITERATE myWhile;
+		END IF;
+            
+		SET hap = hap + i;
+        IF (hap > 1000) THEN
+			LEAVE myWhile;
+		END IF;
+        SET i = i + 1;
+	END WHILE;
+    
+    SELECT hap;
+END $$
+DELIMITER ;
+
+CALL whileProc();
+
+
+DROP PROCEDURE IF EXISTS errorProc;
+DELIMITER $$
+CREATE PROCEDURE errorProc()
+BEGIN
+	DECLARE CONTINUE HANDLER FOR 1146 SELECT '테이블이 없음' AS '메시지';
+    SELECT * FROM noTable;
+END $$
+DELIMITER ;
+
+CALL errorProc();
+
+
