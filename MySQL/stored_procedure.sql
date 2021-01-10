@@ -127,15 +127,15 @@ DROP PROCEDURE IF EXISTS cursorProc;
 DELIMITER $$
 CREATE PROCEDURE cursorProc()
 BEGIN
-	DECLARE id CHAR(8);
+    DECLARE id CHAR(8);
     DECLARE total BIGINT; 
     DECLARE userGrade VARCHAR(5); 
     DECLARE endOfRow BOOLEAN DEFAULT FALSE; 
 
     DECLARE userCuror CURSOR FOR -- 커서 선언
         SELECT U.userID, SUM(price*amount)
-		  FROM userTbl U LEFT OUTER JOIN buyTbl B ON U.userID = B.userID
-		  GROUP BY 1;
+	  FROM userTbl U LEFT OUTER JOIN buyTbl B ON U.userID = B.userID
+	  GROUP BY 1;
   
     DECLARE CONTINUE HANDLER -- 행의 끝
         FOR NOT FOUND SET endOfRow = TRUE;
@@ -149,12 +149,12 @@ BEGIN
             LEAVE cursor_loop;
         END IF;
 
-		CASE 
-			WHEN (total >= 1500) THEN SET userGrade = '최우수고객';
-			WHEN (total >= 1000) THEN SET userGrade = '우수고객';
-			WHEN (total >= 1) THEN SET userGrade = '일반고객';
-			ELSE SET userGrade = '유령고객';
-		END CASE;
+	CASE 
+		WHEN (total >= 1500) THEN SET userGrade = '최우수고객';
+		WHEN (total >= 1000) THEN SET userGrade = '우수고객';
+		WHEN (total >= 1) THEN SET userGrade = '일반고객';
+		ELSE SET userGrade = '유령고객';
+	END CASE;
         
         UPDATE userTbl SET grade = userGrade WHERE userID = id;
     END LOOP cursor_loop;
