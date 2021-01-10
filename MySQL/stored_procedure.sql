@@ -79,6 +79,36 @@ DELIMITER ;
 CALL whileProc();
 
 
+DROP TABLE IF EXISTS guguTBL;
+CREATE TABLE guguTBL (txt VARCHAR(100));
+
+DROP PROCEDURE IF EXISTS whileProc2;
+DELIMITER $$
+CREATE PROCEDURE whileProc2()
+BEGIN
+	DECLARE txt VARCHAR(100);
+	DECLARE dan INT;
+    DECLARE i INT;
+    SET dan = 2;
+    
+    WHILE (dan < 10) DO
+		SET txt = '';
+		SET i = 1;
+        
+		WHILE (i < 10) DO
+			SET txt = concat(txt, ' ', dan, 'x', i, '=', dan*i);
+            SET i = i + 1;
+        END WHILE;
+        SET dan = dan + 1;
+        INSERT INTO guguTBL VALUES(txt);
+    END WHILE;
+	SELECT * FROM guguTBL;
+END $$
+DELIMITER ;
+
+CALL whileProc2();
+
+
 DROP PROCEDURE IF EXISTS errorProc;
 DELIMITER $$
 CREATE PROCEDURE errorProc()
