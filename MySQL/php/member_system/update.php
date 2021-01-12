@@ -45,7 +45,7 @@
 		신장 : <INPUT TYPE="text" NAME="height" VALUE=<?php echo $height ?>> <br>
 		회원 가입일 : <INPUT TYPE="text" NAME="mDate" VALUE=<?php echo $mDate ?> READONLY> 
 		<br><br><br>
-        <INPUT TYPE="submit" VALUE="정보 수정">       
+        	<INPUT TYPE="submit" VALUE="정보 수정">       
     </FORM>
 </BODY>
 </HTML>
