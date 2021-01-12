@@ -1,5 +1,5 @@
 <?php
-	$con=mysqli_connect("localhost", "root", "1234", "sqlDB") or die("MySQL 접속 실패");
+	$con = mysqli_connect("localhost", "root", "1234", "sqlDB") or die("MySQL 접속 실패");
 
 	$userID = $_POST["userID"];
 	$name = $_POST["name"];
@@ -10,9 +10,9 @@
 	$height = $_POST["height"];
 	$mDate = date("Y-m-j");
 
-	$sql ="INSERT INTO userTbl VALUES('".$userID."','".$name."',".$birthYear.",'".$addr."','".$mobile1."','".$mobile2."',".$height.",'".$mDate."')";
+	$sql = "INSERT INTO userTbl VALUES('".$userID."','".$name."',".$birthYear.",'".$addr."','".$mobile1."','".$mobile2."',".$height.",'".$mDate."')";
 
-	$ret=mysqli_query($con, $sql);
+	$ret = mysqli_query($con, $sql);
 
 	echo "<h1> 신규 회원 입력 결과 </h1>";
 	if ($ret) {
