@@ -1,5 +1,5 @@
 <?php
-	$con=mysqli_connect("localhost", "root", "1234", "sqlDB") or die("MySQL 접속 실패");
+	$con = mysqli_connect("localhost", "root", "1234", "sqlDB") or die("MySQL 접속 실패");
 
 	$userID = $_POST["userID"];
 	$name = $_POST["name"];
@@ -10,12 +10,12 @@
 	$height = $_POST["height"];
 	$mDate = $_POST["mDate"];
 
-	$sql ="UPDATE userTbl 
-			  SET name='".$name."', birthYear=".$birthYear.", addr='".$addr."'
-				, mobile1='".$mobile1."',mobile2='".$mobile2."', height=".$height.", mDate='".$mDate."' 
-			  WHERE userID='".$userID."'";
+	$sql = "UPDATE userTbl 
+		   SET name='".$name."', birthYear=".$birthYear.", addr='".$addr."'
+			, mobile1='".$mobile1."',mobile2='".$mobile2."', height=".$height.", mDate='".$mDate."' 
+		   WHERE userID='".$userID."'";
 
-	$ret=mysqli_query($con, $sql);
+	$ret = mysqli_query($con, $sql);
 
 	echo "<h1> 회원 정보 수정 결과 </h1>";
 	if ($ret) {
