@@ -33,7 +33,7 @@
 		아이디 : <INPUT TYPE="text" NAME="userID" VALUE=<?php echo $userID ?> READONLY> <br>
 		이름 : <INPUT TYPE="text" NAME="name" VALUE=<?php echo $name ?> READONLY> <br><br><br>
 		위 회원을 삭제하겠습니까?
-        <INPUT TYPE="submit" VALUE="회원 삭제">       
+        	<INPUT TYPE="submit" VALUE="회원 삭제">       
     </FORM>
 </BODY>
 </HTML>
