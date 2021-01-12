@@ -1,7 +1,7 @@
 <?php
-	$con=mysqli_connect("localhost", "root", "1234", "sqlDB") or die("MySQL 접속 실패");
-	$sql="SELECT * FROM userTbl";
-	$ret=mysqli_query($con, $sql);
+	$con = mysqli_connect("localhost", "root", "1234", "sqlDB") or die("MySQL 접속 실패");
+	$sql = "SELECT * FROM userTbl";
+	$ret = mysqli_query($con, $sql);
 
 	if ($ret) {
 		$count = mysqli_num_rows($ret);
