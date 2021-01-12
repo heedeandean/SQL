@@ -1,11 +1,11 @@
 <?php
-	$con=mysqli_connect("localhost", "root", "1234", "sqlDB") or die("MySQL 접속 실패");
+	$con = mysqli_connect("localhost", "root", "1234", "sqlDB") or die("MySQL 접속 실패");
 
 	$userID = $_POST["userID"];
 
-	$sql ="DELETE FROM userTbl WHERE userID='".$userID."'";
+	$sql = "DELETE FROM userTbl WHERE userID='".$userID."'";
 
-	$ret=mysqli_query($con, $sql);
+	$ret = mysqli_query($con, $sql);
 
 	echo "<h1> 회원 삭제 결과 </h1>";
 	if ($ret) {
