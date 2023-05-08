@@ -1,0 +1,63 @@
+CREATE TABLE 계좌 (
+	학생번호	CHAR(13)	PRIMARY KEY,
+    계좌번호	CHAR(15)	NOT NULL,
+    잔액		INT 		NOT NULL DEFAULT 0
+);
+
+DELIMITER $$
+CREATE TRIGGER balance_check_insert BEFORE INSERT ON 계좌 
+FOR EACH ROW
+BEGIN
+	IF(new.잔액 < 0) then
+		SIGNAL SQLSTATE '45000'
+        SET message_text='잔액은 음수가 될 수 없습니다.';
+	END IF;
+END $$	
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER balance_check_update BEFORE UPDATE ON 계좌 
+FOR EACH ROW
+BEGIN
+	IF(new.잔액 < 0) then
+		SIGNAL SQLSTATE '45000'
+        SET message_text='잔액은 음수가 될 수 없습니다.';
+	END IF;
+END $$	
+DELIMITER ;
+
+INSERT INTO 계좌 VALUES ('202026-590930', '123435-333333', '450000'), ('202026-590931', '123435-333332', '100000');
+
+START TRANSACTION;
+UPDATE 계좌 
+SET 잔액 = 잔액 - 5000000
+WHERE 학생번호 = '202026-590930';
+UPDATE 계좌 
+SET 잔액 = 잔액 + 5000000
+WHERE 학생번호 = '202026-590931';
+ROLLBACK;
+
+
+DELIMITER $$
+CREATE PROCEDURE WITH_TRANSFER(
+	IN sender CHAR(13),
+    IN recipient CHAR(15),
+    IN amount INT
+)
+BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION ROLLBACK;
+    START TRANSACTION;
+		UPDATE 계좌 
+		SET 잔액 = 잔액 - amount
+		WHERE 학생번호 = sender;
+		UPDATE 계좌 
+		SET 잔액 = 잔액 + amount
+		WHERE 학생번호 = sender;
+    COMMIT;
+END$$
+DELIMITER ;
+
+CALL WITH_TRANSFER('202026-590930', '202026-590931', 1000);
+CALL WITH_TRANSFER('202026-590930', '202026-590931', 1100000000);
+
+SELECT * FROM 계좌;
